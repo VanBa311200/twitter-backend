@@ -7,9 +7,6 @@ const cookieParse = require("cookie-parser");
 const helmet = require("helmet");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
-const Redis = require("ioredis");
-const RedisStore = require("connect-redis")(session);
-const redisClient = new Redis();
 require("dotenv").config();
 
 const app = express();
