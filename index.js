@@ -43,9 +43,9 @@ app.use(cookieParse());
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // <-- location of the react app were connecting to
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    allowedHeaders: "*",
-    // allowCredentials:
+    // allowedHeaders: "*",
   })
 );
 app.use(express.urlencoded({ extended: true }));
