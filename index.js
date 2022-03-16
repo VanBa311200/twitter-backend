@@ -18,8 +18,12 @@ const socket = require("socket.io");
 const api = require("./api");
 
 // connect Database mongoose
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const dbname = process.env.DB_NAME;
+const URI_DATABASE = `mongodb+srv://${username}:${password}@cluster0.l99fl.mongodb.net/${dbname}?retryWrites=true&w=majority`;
 mongoose
-  .connect(process.env.URI_DATABASE)
+  .connect(URI_DATABASE)
   .then(() => console.log("🎯 Database is connected."))
   .catch((error) => console.log(error));
 
