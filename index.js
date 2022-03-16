@@ -10,6 +10,7 @@ const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
 const app = express();
+app.set("trust proxy", 1);
 
 // socket io
 const socket = require("socket.io");
@@ -36,7 +37,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.URI_DATABASE }),
     resave: true,
     saveUninitialized: false,
-    cookie: { maxAge: 12 * 60 * 60 * 1000 }, // 2 day
+    cookie: { maxAge: 12 * 60 * 60 * 1000, sameSite: "lax", secure: false }, // 2 day
   })
 );
 app.use(cookieParse());
