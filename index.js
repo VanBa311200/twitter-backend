@@ -44,7 +44,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL, // <-- location of the react app were connecting to
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    // credentials: true,
     // allowedHeaders: "*",
   })
 );
