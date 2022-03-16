@@ -18,10 +18,12 @@ router.get("/login/failed", (req, res) => {
  * Desc: handle login success
  */
 router.get("/getAuth", (req, res) => {
-  if (req.user) {
+  const sessionUser = req.session?.passport?.user;
+  console.log({ sessionUser });
+  if (sessionUser) {
     return res
       .status(200)
-      .json({ success: true, message: "Success.", data: req.user });
+      .json({ success: true, message: "Success.", data: sessionUser });
   }
   return res.status(401).json({ success: false, message: "Unauthorization." });
 });
