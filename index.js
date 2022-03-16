@@ -46,7 +46,22 @@ app.use(
     origin: process.env.CLIENT_URL, // <-- location of the react app were connecting to
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    // allowedHeaders: "*",
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "X-Forwarded-Proto",
+      "Cookie",
+      "Set-Cookie",
+    ],
+    exposedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "X-Forwarded-Proto",
+      "Cookie",
+      "Set-Cookie",
+    ],
   })
 );
 app.use(express.urlencoded({ extended: true }));
