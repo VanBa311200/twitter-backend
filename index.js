@@ -42,7 +42,7 @@ app.use(cookieParse());
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // <-- location of the react app were connecting to
-    credentials: true,
+    // credentials: true,
   })
 );
 app.use(express.urlencoded({ extended: true }));
