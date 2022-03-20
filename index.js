@@ -3,10 +3,8 @@ const cors = require("cors");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const cookieParse = require("cookie-parser");
 const helmet = require("helmet");
 const passport = require("passport");
-const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
 const app = express();
@@ -34,34 +32,16 @@ app.use(logger("dev"));
 app.use(
   session({
     secret: process.env.SECRET_KEY_APP,
-    store: MongoStore.create({ mongoUrl: process.env.URI_DATABASE }),
     resave: true,
     saveUninitialized: false,
     cookie: { maxAge: 12 * 60 * 60 * 1000, sameSite: "lax", secure: false }, // 2 day
   })
 );
-app.use(cookieParse());
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // <-- location of the react app were connecting to
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "X-Forwarded-Proto",
-      "Cookie",
-      "Set-Cookie",
-    ],
-    exposedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "X-Forwarded-Proto",
-      "Cookie",
-      "Set-Cookie",
-    ],
   })
 );
 app.use(express.urlencoded({ extended: true }));

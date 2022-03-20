@@ -7,10 +7,14 @@ router.get("/login/facebook", passport.authenticate("facebook"));
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: process.env.CLIENT_URL,
     failureRedirect: process.env.SERVER_URL + "/api/auth/login/failed",
-    failureMessage: "Error!!! Try again.",
-  })
+    session: false,
+  }),
+  (req, res) => {
+    const accessToken = req.accessToken;
+    console.log({ accessToken });
+    res.redirect(`${process.env.CLIENT_URL}?auth_accessToken=${accessToken}`);
+  }
 );
 
 module.exports = router;

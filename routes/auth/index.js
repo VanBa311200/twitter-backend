@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const authGoole = require("./authGoogle");
 const authFB = require("./authFB");
+const { restrict } = require("../../middleware/authenticate");
 
 /**
  * Router: /login/failed
@@ -17,13 +18,11 @@ router.get("/login/failed", (req, res) => {
  * Method: GET
  * Desc: handle login success
  */
-router.get("/getAuth", (req, res) => {
-  const sessionUser = req.session?.passport?.user;
-  console.log({ sessionUser });
-  if (sessionUser) {
+router.get("/getAuth", restrict, (req, res) => {
+  if (req.user) {
     return res
       .status(200)
-      .json({ success: true, message: "Success.", data: sessionUser });
+      .json({ success: true, message: "Success.", data: req.user });
   }
   return res.status(401).json({ success: false, message: "Unauthorization." });
 });
